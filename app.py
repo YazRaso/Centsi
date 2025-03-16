@@ -313,7 +313,7 @@ if not st.session_state.form_submitted:
                     if bill_sum <= paid_sum:
                         st.session_state.prediction = 0
                     else:
-                        st.session_state.prediction = min(0.99, float(prediction_result[0]) / 0.6)
+                        st.session_state.prediction = float(prediction_result[0])
                 else:
                     st.error("Prediction returned empty result")
                     st.session_state.prediction = None
