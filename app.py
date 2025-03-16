@@ -41,14 +41,12 @@ if 'params' not in st.session_state:
 def eval_risk(p_default):
     """Evaluate risk based on default probability"""
     msg = ""
-    if 0.45 <= p_default < 0.48:
-        msg = "Likely to default"
-    elif 0.2 <= p_default < 0.45:
+    if 0 <= p_default < 0.4:
+        msg = "Very unlikely to default"
+    elif 0.4 <= p_default < 0.5:
         msg = "Moderate risk of default"
-    elif p_default >= 0.48:  # Fixed: Changed duplicate condition to p_default >= 0.48
-        msg = "Very likely to default"
     else:
-        msg = "Very Unlikely to default"
+        msg = "Very likely to default"
 
     st.metric("Default Probability", f"{p_default:.2%}", msg)
 
@@ -307,7 +305,7 @@ if not st.session_state.form_submitted:
 
                 # Store prediction in session state
                 if len(prediction_result) > 0:
-                    st.session_state.prediction = float(prediction_result[0])
+                    st.session_state.prediction = float(prediction_result[0]) / 0.48
                     print(f"Prediction made: {st.session_state.prediction}")
                 else:
                     st.error("Prediction returned empty result")
