@@ -2,6 +2,8 @@ import pandas as pd
 import xgboost as xgb
 import streamlit as st
 import matplotlib.pyplot as plt
+import seaborn as sns
+from sentiment import *
 
 model = xgb.Booster()
 
@@ -13,6 +15,16 @@ if 'form_submitted' not in st.session_state:
 # Initialize prediction in session state
 if 'prediction' not in st.session_state:
     st.session_state.prediction = None
+
+
+def default_probabilities(predict=st.session_state.prediction):
+    fig, ax = plt.subplots()
+    sns.histplot(predict, bins=50, kde=True, ax=ax)
+    ax.set_xlabel("Predicted Default Probability")
+    ax.set_ylabel("Count")
+    ax.set_title("Distribution of Default Probabilities")
+    st.pyplot(fig)
+
 
 
 def eval_risk(p_default):
@@ -114,7 +126,7 @@ else:
         # TODO: Add metrics
         metric = st.selectbox(
             "What metrics do you like to view?",
-            ("Sentiment Analysis", "Feature Importance"),
+            ("sentiment analysis", "feature importance", "default probabilities"),
             placeholder="Awaiting orders!",
         )
         metric()
