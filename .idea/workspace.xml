@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42ed5a9b-f2c6-4805-b860-c625dea0b22a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/PythonProject14.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sentiment.py" afterDir="false" />
+    <list default="true" id="42ed5a9b-f2c6-4805-b860-c625dea0b22a" name="Changes" comment="Added app">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/centseek_model.json" beforeDir="false" afterPath="$PROJECT_DIR$/centseek_model.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sentiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/sentiment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +26,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;YazRaso&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/YazRaso/Centsi.git&quot;,
+    &quot;accountId&quot;: &quot;0de77484-8652-4a8f-ab88-c79249108708&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -69,11 +77,59 @@
       <option name="presentableId" value="Default" />
       <updated>1742062214489</updated>
       <workItem from="1742062215493" duration="972000" />
-      <workItem from="1742064060613" duration="8556000" />
+      <workItem from="1742064060613" duration="12141000" />
+      <workItem from="1742082260999" duration="6331000" />
+      <workItem from="1742089023261" duration="12430000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1742075371967</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742075371967</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added app">
+      <option name="closed" value="true" />
+      <created>1742075451465</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742075451465</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added app">
+      <option name="closed" value="true" />
+      <created>1742075462730</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742075462730</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added app">
+      <option name="closed" value="true" />
+      <created>1742075488120</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742075488120</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added app">
+      <option name="closed" value="true" />
+      <created>1742075494539</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742075494539</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Added app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added app" />
   </component>
 </project>
