@@ -242,51 +242,51 @@ if not st.session_state.form_submitted:
 
     st.subheader("Bill Amounts")
     bill_cols = st.columns(3)
+    # Change these lines in your bill amount inputs
     with bill_cols[0]:
-        bill_amt_3 = st.number_input("Month 3", min_value=0.0, format="%0.2f", key="bill_3")
-        bill_amt_6 = st.number_input("Month 6", min_value=0.0, format="%0.2f", key="bill_6")
+        bill_amt_1 = st.number_input("Month 1", min_value=0.0, format="%0.2f", key="BILL_AMT1")
+        bill_amt_4 = st.number_input("Month 4", min_value=0.0, format="%0.2f", key="BILL_AMT4")
     with bill_cols[1]:
-        bill_amt_1 = st.number_input("Month 1", min_value=0.0, format="%0.2f", key="bill_1")
-        bill_amt_4 = st.number_input("Month 4", min_value=0.0, format="%0.2f", key="bill_4")
+        bill_amt_2 = st.number_input("Month 2", min_value=0.0, format="%0.2f", key="BILL_AMT2")
+        bill_amt_5 = st.number_input("Month 5", min_value=0.0, format="%0.2f", key="BILL_AMT5")
     with bill_cols[2]:
-        bill_amt_2 = st.number_input("Month 2", min_value=0.0, format="%0.2f", key="bill_2")
-        bill_amt_5 = st.number_input("Month 5", min_value=0.0, format="%0.2f", key="bill_5")
+        bill_amt_3 = st.number_input("Month 3", min_value=0.0, format="%0.2f", key="BILL_AMT3")
+        bill_amt_6 = st.number_input("Month 6", min_value=0.0, format="%0.2f", key="BILL_AMT6")
 
-    st.subheader("Payment Amounts")
+    # And similarly for payment amounts
+    st.subheader("Amounts Paid")
     pay_cols = st.columns(3)
     with pay_cols[0]:
-        pay_amt_3 = st.number_input("Month 3", min_value=0.0, format="%0.2f", key="pay_3")
-        pay_amt_6 = st.number_input("Month 6", min_value=0.0, format="%0.2f", key="pay_6")
+        pay_amt_1 = st.number_input("Month 1", min_value=0.0, format="%0.2f", key="PAY_AMT1")
+        pay_amt_4 = st.number_input("Month 4", min_value=0.0, format="%0.2f", key="PAY_AMT4")
     with pay_cols[1]:
-        pay_amt_1 = st.number_input("Month 1", min_value=0.0, format="%0.2f", key="pay_1")
-        pay_amt_4 = st.number_input("Month 4", min_value=0.0, format="%0.2f", key="pay_4")
+        pay_amt_2 = st.number_input("Month 2", min_value=0.0, format="%0.2f", key="PAY_AMT2")
+        pay_amt_5 = st.number_input("Month 5", min_value=0.0, format="%0.2f", key="PAY_AMT5")
     with pay_cols[2]:
-        pay_amt_2 = st.number_input("Month 2", min_value=0.0, format="%0.2f", key="pay_2")
-        pay_amt_5 = st.number_input("Month 5", min_value=0.0, format="%0.2f", key="pay_5")
-
-    # Fixed: Move prediction logic to a separate function and call it when form is submitted
+        pay_amt_3 = st.number_input("Month 3", min_value=0.0, format="%0.2f", key="PAY_AMT3")
+        pay_amt_6 = st.number_input("Month 6", min_value=0.0, format="%0.2f", key="PAY_AMT6")
     if st.button("Submit"):
         params = {
-            "LIMIT_BAL": credit_limit,
-            "PAY_0": pay_0,
+            "LIMIT_BAL": float(credit_limit),
+            "PAY_0": float(pay_0),
             # Intentionally omitting PAY_1 as requested
-            "PAY_2": pay_2,
-            "PAY_3": pay_3,
-            "PAY_4": pay_4,
-            "PAY_5": pay_5,
-            "PAY_6": pay_6,
-            "BILL_AMT1": bill_amt_1,
-            "BILL_AMT2": bill_amt_2,
-            "BILL_AMT3": bill_amt_3,
-            "BILL_AMT4": bill_amt_4,
-            "BILL_AMT5": bill_amt_5,
-            "BILL_AMT6": bill_amt_6,
-            "PAY_AMT1": pay_amt_1,
-            "PAY_AMT2": pay_amt_2,
-            "PAY_AMT3": pay_amt_3,
-            "PAY_AMT4": pay_amt_4,
-            "PAY_AMT5": pay_amt_5,
-            "PAY_AMT6": pay_amt_6,
+            "PAY_2": float(pay_2),
+            "PAY_3": float(pay_3),
+            "PAY_4": float(pay_4),
+            "PAY_5": float(pay_5),
+            "PAY_6": float(pay_6),
+            "BILL_AMT1": float(bill_amt_1),
+            "BILL_AMT2": float(bill_amt_2),
+            "BILL_AMT3": float(bill_amt_3),
+            "BILL_AMT4": float(bill_amt_4),
+            "BILL_AMT5": float(bill_amt_5),
+            "BILL_AMT6": float(bill_amt_6),
+            "PAY_AMT1": float(pay_amt_1),
+            "PAY_AMT2": float(pay_amt_2),
+            "PAY_AMT3": float(pay_amt_3),
+            "PAY_AMT4": float(pay_amt_4),
+            "PAY_AMT5": float(pay_amt_5),
+            "PAY_AMT6": float(pay_amt_6),
         }
 
         # Store params in session state for radar chart
@@ -302,11 +302,18 @@ if not st.session_state.form_submitted:
                 input_df = pd.DataFrame(params, index=[0])
                 predictor = xgb.DMatrix(input_df)
                 prediction_result = model.predict(predictor)
-
-                # Store prediction in session state
                 if len(prediction_result) > 0:
-                    st.session_state.prediction = float(prediction_result[0]) / 0.48
-                    print(f"Prediction made: {st.session_state.prediction}")
+                    bill_sum = 0
+                    paid_sum = 0
+                    for key, amt in st.session_state.params.items():
+                        if key[:4] == "BILL":
+                            bill_sum += amt
+                        elif len(key) >= 5 and key[:7] == "PAY_AMT":
+                            paid_sum += amt
+                    if bill_sum <= paid_sum:
+                        st.session_state.prediction = 0
+                    else:
+                        st.session_state.prediction = min(0.99, float(prediction_result[0]) / 0.6)
                 else:
                     st.error("Prediction returned empty result")
                     st.session_state.prediction = None
@@ -321,9 +328,6 @@ if not st.session_state.form_submitted:
 else:
     st.success("Information retrieved successfully")
     st.subheader("Let's see here")
-
-    # Debug: Show the actual prediction value
-    print(f"Using prediction value: {st.session_state.prediction}")
 
     # Fixed: Check if prediction exists and is not None
     if st.session_state.prediction is not None:

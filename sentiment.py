@@ -152,5 +152,4 @@ def sentiment_analysis():
         return result_with_text
 
     except Exception as e:
-        print(f"Complete sentiment analysis error: {str(e)}")
         return {"label": "NEUTRAL", "score": 0.5, "message": f"Sentiment analysis failed: {str(e)}"}
