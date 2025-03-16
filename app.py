@@ -1,12 +1,36 @@
 import pandas as pd
 import xgboost as xgb
 import streamlit as st
+import matplotlib.pyplot as plt
 
 model = xgb.Booster()
+
 model.load_model("centseek_model.json")
 
 if 'form_submitted' not in st.session_state:
     st.session_state.form_submitted = False
+
+# Initialize prediction in session state
+if 'prediction' not in st.session_state:
+    st.session_state.prediction = None
+
+
+def eval_risk(p_default):
+    if p_default >= 0.8:
+        st.warning("Very likely to default")
+    elif 0.5 < p_default < 0.8:
+        st.warning("Likely to default")
+    elif 0.2 < p_default < 0.4:
+        st.success("Unlikely to default")
+    else:
+        st.success("Very unlikely to default")
+
+
+def plot_feature_importance():
+    fig, ax = plt.subplots()
+    xgb.plot_importance(model, importance_type="gain", ax=ax, max_num_features=10)
+    ax.set_title("Top 10 Feature Importances")
+    st.pyplot(fig)
 
 
 def submit_form():
@@ -54,37 +78,46 @@ if not st.session_state.form_submitted:
         pay_amt_2 = st.number_input("Month 2", min_value=0.0, format="%0.2f", key="pay_2")
         pay_amt_5 = st.number_input("Month 5", min_value=0.0, format="%0.2f", key="pay_5")
 
-    st.button("Submit", on_click=submit_form)
-    params = {
-        "ID": 0,
-        "LIMIT_BAL": credit_limit,
-        "PAY_0": pay_amt_1,
-        "PAY_2": pay_amt_2,
-        "PAY_3": pay_amt_3,
-        "PAY_4": pay_amt_4,
-        "PAY_5": pay_amt_5,
-        "PAY_6": pay_amt_6,
-        "BILL_AMT1": bill_amt_1,
-        "BILL_AMT2": bill_amt_2,
-        "BILL_AMT3": bill_amt_3,
-        "BILL_AMT4": bill_amt_4,
-        "BILL_AMT5": bill_amt_5,
-        "BILL_AMT6": bill_amt_6,
-        "PAY_AMT1": pay_amt_1,
-        "PAY_AMT2": pay_amt_2,
-        "PAY_AMT3": pay_amt_3,
-        "PAY_AMT4": pay_amt_4,
-        "PAY_AMT5": pay_amt_5,
-        "PAY_AMT6": pay_amt_6,
-    }
-    input_given = pd.DataFrame(data=params, index=[0, 1, 2, 3, 4, 5, 6])
-    predictor = xgb.DMatrix(input_given)
-    prediction = model.predict(predictor)
-    print(prediction[0])
+    if st.button("Submit", on_click=submit_form):
+        params = {
+            "ID": 0,
+            "LIMIT_BAL": credit_limit,
+            "PAY_0": pay_0,  # Fixed: was using pay_amt_1 instead of pay_0
+            "PAY_2": pay_2,  # Fixed: was using pay_amt_2 instead of pay_2
+            "PAY_3": pay_3,  # Fixed: was using pay_amt_3 instead of pay_3
+            "PAY_4": pay_4,  # Fixed: was using pay_amt_4 instead of pay_4
+            "PAY_5": pay_5,  # Fixed: was using pay_amt_5 instead of pay_5
+            "PAY_6": pay_6,  # Fixed: was using pay_amt_6 instead of pay_6
+            "BILL_AMT1": bill_amt_1,
+            "BILL_AMT2": bill_amt_2,
+            "BILL_AMT3": bill_amt_3,
+            "BILL_AMT4": bill_amt_4,
+            "BILL_AMT5": bill_amt_5,
+            "BILL_AMT6": bill_amt_6,
+            "PAY_AMT1": pay_amt_1,
+            "PAY_AMT2": pay_amt_2,
+            "PAY_AMT3": pay_amt_3,
+            "PAY_AMT4": pay_amt_4,
+            "PAY_AMT5": pay_amt_5,
+            "PAY_AMT6": pay_amt_6,
+        }
+        input_df = pd.DataFrame(params, index=[0])  # Fixed: simplified DataFrame creation
+        predictor = xgb.DMatrix(input_df)
+        st.session_state.prediction = model.predict(predictor)[0]  # Store prediction in session state
 else:
     st.success("Information retrieved successfully")
+    st.subheader("Let's see here")
 
-    st.subheader("Let me take a look - CentSeek")
+    # Access prediction from session state
+    if st.session_state.prediction is not None:
+        eval_risk(st.session_state.prediction)
+        # TODO: Add metrics
+        metric = st.selectbox(
+            "What metrics do you like to view?",
+            ("Sentiment Analysis", "Feature Importance"),
+            placeholder="Awaiting orders!",
+        )
+        metric()
 
     if st.button("Enter New Data"):
         st.session_state.form_submitted = False
