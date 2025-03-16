@@ -25,10 +25,10 @@ CentSeek helps financial institutions and creditors make informed decisions abou
 ### 1. Payment Default Risk Assessment
 
 CentSeek's core functionality is to assess the probability that a customer will default on payments. The application calculates this probability and categorizes risk levels:
-- **Very likely to default**: 48% or higher probability
-- **Likely to default**: 45-48% probability 
-- **Moderate risk**: 20-45% probability
-- **Very unlikely to default**: Below 20% probability
+- **Very likely to default**
+- **Likely to default**
+- **Moderate risk**
+- **Very unlikely to default**
 
 ### 2. Interactive Visualizations
 
