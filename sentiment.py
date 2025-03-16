@@ -21,14 +21,25 @@ except ImportError:
     print("Google Generative AI package not installed. Install with: pip install google-generativeai")
 
 
-# Only try to import transformers if needed
 def get_sentiment_pipeline():
+    """Initialize and return the sentiment analysis pipeline from transformers"""
     try:
         from transformers import pipeline
-        return pipeline("sentiment-analysis")
+        # Explicitly set a model for consistent results
+        sentiment_analyzer = pipeline(
+            "sentiment-analysis",
+            model="distilbert-base-uncased-finetuned-sst-2-english",
+            return_all_scores=False
+        )
+        print("Successfully loaded sentiment analysis pipeline")
+        return sentiment_analyzer
+    except ImportError:
+        print("Transformers library not installed. Install with: pip install transformers")
+        return None
     except Exception as e:
         print(f"Error loading transformers pipeline: {str(e)}")
         return None
+
 
 
 def get_api_key():
